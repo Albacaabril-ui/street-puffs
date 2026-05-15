@@ -283,9 +283,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 
 import {
   getFirestore,
-  collection,
-  addDoc,
-  getDocs
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -315,6 +317,8 @@ const querySnapshot = await getDocs(collection(db, "products"));
 querySnapshot.forEach((firebaseDoc)=>{
 
 const product = firebaseDoc.data();
+
+product.id = firebaseDoc.id;
 
 if(currentCategory !== "Todos" && product.category !== currentCategory){
 return;
@@ -413,6 +417,24 @@ document.getElementById("productContent").innerHTML = `
 
 <div class="price">${product.price}</div>
 
+${admin ? `
+<button
+onclick="deleteProduct('${product.id}')"
+style="
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:red;
+color:white;
+font-weight:700;
+cursor:pointer;
+">
+ELIMINAR PRODUCTO
+</button>
+` : ""}
+
 <a class="whatsapp"
 href="https://api.whatsapp.com/send?phone=5493814157720&text=Hola,%20quiero%20consultar%20por%20${encodeURIComponent(product.name)}"
 target="_blank">
@@ -429,6 +451,22 @@ document.getElementById("productModal").style.display = "flex";
 window.closeProduct = function(){
 
 document.getElementById("productModal").style.display = "none";
+
+}
+
+window.deleteProduct = async function(id){
+
+const confirmar = confirm("Eliminar producto?");
+
+if(!confirmar) return;
+
+await deleteDoc(doc(db, "products", id));
+
+closeProduct();
+
+loadProducts();
+
+alert("Producto eliminado");
 
 }
 
