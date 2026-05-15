@@ -225,8 +225,19 @@ color:#777;
 <h2 class="title">Categorías</h2>
 
 <div class="categories">
-<div class="category">VAPERS</div>
-<div class="category">ACCESORIOS IPHONE</div>
+
+<div class="category" onclick="filterCategory('Todos')">
+TODOS
+</div>
+
+<div class="category" onclick="filterCategory('Vapers')">
+VAPERS
+</div>
+
+<div class="category" onclick="filterCategory('Accesorios iPhone')">
+ACCESORIOS IPHONE
+</div>
+
 </div>
 
 <h2 class="title">Productos</h2>
@@ -291,6 +302,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let admin = false;
+let currentCategory = "Todos";
 
 async function loadProducts(){
 
@@ -303,6 +315,10 @@ const querySnapshot = await getDocs(collection(db, "products"));
 querySnapshot.forEach((firebaseDoc)=>{
 
 const product = firebaseDoc.data();
+
+if(currentCategory !== "Todos" && product.category !== currentCategory){
+return;
+}
 
 container.innerHTML += `
 <div class="card" onclick='openProduct(${JSON.stringify(product)})'>
@@ -378,8 +394,6 @@ await addDoc(collection(db, "products"), product);
 
 closeAdmin();
 
-loadProducts();
-
 alert("Producto agregado");
 
 window.savingProduct = false;
@@ -415,6 +429,14 @@ document.getElementById("productModal").style.display = "flex";
 window.closeProduct = function(){
 
 document.getElementById("productModal").style.display = "none";
+
+}
+
+window.filterCategory = function(category){
+
+currentCategory = category;
+
+loadProducts();
 
 }
 
