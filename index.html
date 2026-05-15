@@ -300,9 +300,9 @@ container.innerHTML = "";
 
 const querySnapshot = await getDocs(collection(db, "products"));
 
-querySnapshot.forEach((doc)=>{
+querySnapshot.forEach((firebaseDoc)=>{
 
-const product = doc.data();
+const product = firebaseDoc.data();
 
 container.innerHTML += `
 <div class="card" onclick='openProduct(${JSON.stringify(product)})'>
@@ -362,6 +362,10 @@ document.getElementById("adminModal").style.display = "none";
 
 window.saveProduct = async function(){
 
+if(window.savingProduct) return;
+
+window.savingProduct = true;
+
 const product = {
 name:document.getElementById("name").value,
 price:document.getElementById("price").value,
@@ -377,6 +381,8 @@ closeAdmin();
 loadProducts();
 
 alert("Producto agregado");
+
+window.savingProduct = false;
 
 }
 
