@@ -369,6 +369,21 @@ document.getElementById("productModal").style.display = "none";
 }
 
 renderProducts();
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
+    authDomain: "street-puffs-9546f.firebaseapp.com",
+    projectId: "street-puffs-9546f",
+    storageBucket: "street-puffs-9546f.firebasestorage.app",
+    messagingSenderId: "544227766279",
+    appId: "1:544227766279:web:21d28d3c668736a90e7aa2",
+    measurementId: "G-4VWG2XW150"
+  };
+
+  const app = initializeApp(firebaseConfig);
+</script>
 </script>
 
 </body>
