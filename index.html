@@ -266,25 +266,46 @@ color:#777;
 © 2026 Street Puffs
 </footer>
 
-<script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
+  authDomain: "street-puffs-9546f.firebaseapp.com",
+  projectId: "street-puffs-9546f",
+  storageBucket: "street-puffs-9546f.firebasestorage.app",
+  messagingSenderId: "544227766279",
+  appId: "1:544227766279:web:21d28d3c668736a90e7aa2",
+  measurementId: "G-4VWG2XW150"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let admin = false;
 
-const defaultProducts = [];
-if(!localStorage.getItem("products")){
-localStorage.setItem("products",JSON.stringify(defaultProducts));
-}
+async function loadProducts(){
 
-function getProducts(){
-return JSON.parse(localStorage.getItem("products"));
-}
-
-function renderProducts(){
 const container = document.getElementById("products");
+
 container.innerHTML = "";
 
-getProducts().forEach((product,index)=>{
+const querySnapshot = await getDocs(collection(db, "products"));
+
+querySnapshot.forEach((doc)=>{
+
+const product = doc.data();
+
 container.innerHTML += `
-<div class="card" onclick="openProduct(${index})">
+<div class="card" onclick='openProduct(${JSON.stringify(product)})'>
 <img src="${product.image}">
 <div class="card-content">
 <h3>${product.name}</h3>
@@ -292,37 +313,54 @@ container.innerHTML += `
 </div>
 </div>
 `;
+
 });
 
 if(admin){
+
 container.innerHTML += `
 <div class="card add-card" onclick="openAdmin()">
 +
 </div>
 `;
-}
+
 }
 
-function loginAdmin(){
+}
+
+window.loginAdmin = function(){
+
 const pass = prompt("Ingresar contraseña admin");
+
 if(pass === "street123"){
+
 admin = true;
-renderProducts();
+
+loadProducts();
+
 alert("Modo administrador activado");
+
 }else{
+
 alert("Contraseña incorrecta");
-}
+
 }
 
-function openAdmin(){
+}
+
+window.openAdmin = function(){
+
 document.getElementById("adminModal").style.display = "flex";
+
 }
 
-function closeAdmin(){
+window.closeAdmin = function(){
+
 document.getElementById("adminModal").style.display = "none";
+
 }
 
-async function saveProduct(){
+window.saveProduct = async function(){
 
 const product = {
 name:document.getElementById("name").value,
@@ -341,31 +379,14 @@ loadProducts();
 alert("Producto agregado");
 
 }
-const product = {
-name:document.getElementById("name").value,
-price:document.getElementById("price").value,
-image:document.getElementById("image").value,
-description:document.getElementById("description").value,
-category:document.getElementById("category").value
-};
 
-const products = getProducts();
-products.push(product);
-
-localStorage.setItem("products",JSON.stringify(products));
-
-closeAdmin();
-renderProducts();
-
-alert("Producto agregado");
-}
-
-function openProduct(index){
-const product = getProducts()[index];
+window.openProduct = function(product){
 
 document.getElementById("productContent").innerHTML = `
 <span class="close" onclick="closeProduct()">&times;</span>
+
 <img src="${product.image}">
+
 <h2>${product.name}</h2>
 
 <div class="flavors">${product.description}</div>
@@ -373,80 +394,24 @@ document.getElementById("productContent").innerHTML = `
 <div class="price">${product.price}</div>
 
 <a class="whatsapp"
-href="https://api.whatsapp.com/send?phone=5493814157720text=Hola,%20quiero%20consultar%20por%20${encodeURIComponent(product.name)}"
+href="https://api.whatsapp.com/send?phone=5493814157720&text=Hola,%20quiero%20consultar%20por%20${encodeURIComponent(product.name)}"
 target="_blank">
+
 Consultar por WhatsApp
+
 </a>
 `;
 
 document.getElementById("productModal").style.display = "flex";
+
 }
 
-function closeProduct(){
+window.closeProduct = function(){
+
 document.getElementById("productModal").style.display = "none";
-}
-
-async function loadProducts(){
-
-const container = document.getElementById("products");
-
-container.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db, "products"));
-
-querySnapshot.forEach((doc) => {
-
-const product = doc.data();
-
-container.innerHTML += `
-<div class="card">
-<img src="${product.image}">
-<div class="card-content">
-<h3>${product.name}</h3>
-<div class="price">${product.price}</div>
-</div>
-</div>
-`;
-
-});
-
-if(admin){
-
-container.innerHTML += `
-<div class="card add-card" onclick="openAdmin()">
-+
-</div>
-`;
-
-}
 
 }
 
 loadProducts();
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
-    authDomain: "street-puffs-9546f.firebaseapp.com",
-    projectId: "street-puffs-9546f",
-    storageBucket: "street-puffs-9546f.firebasestorage.app",
-    messagingSenderId: "544227766279",
-    appId: "1:544227766279:web:21d28d3c668736a90e7aa2",
-    measurementId: "G-4VWG2XW150"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
 </script>
-</script>
-
-</body>
-</html>
