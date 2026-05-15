@@ -254,7 +254,7 @@ ACCESORIOS IPHONE
 
 <input type="text" id="price" placeholder="Precio">
 
-<input type="text" id="image" placeholder="URL de imagen">
+<input type="file" id="image" accept="image/*">
 
 <textarea id="description" rows="5" placeholder="Sabores o descripción"></textarea>
 
@@ -283,12 +283,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 
 import {
   getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
@@ -302,6 +309,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 let admin = false;
 let currentCategory = "Todos";
@@ -386,10 +394,24 @@ if(window.savingProduct) return;
 
 window.savingProduct = true;
 
+const file = document.getElementById("image").files[0];
+
+if(!file){
+alert("Seleccioná una imagen");
+window.savingProduct = false;
+return;
+}
+
+const imageRef = ref(storage, "products/" + Date.now() + file.name);
+
+await uploadBytes(imageRef, file);
+
+const imageURL = await getDownloadURL(imageRef);
+
 const product = {
 name:document.getElementById("name").value,
 price:document.getElementById("price").value,
-image:document.getElementById("image").value,
+image:imageURL,
 description:document.getElementById("description").value,
 category:document.getElementById("category").value
 };
@@ -397,6 +419,8 @@ category:document.getElementById("category").value
 await addDoc(collection(db, "products"), product);
 
 closeAdmin();
+
+loadProducts();
 
 alert("Producto agregado");
 
