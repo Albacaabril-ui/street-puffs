@@ -272,6 +272,11 @@ ACCESORIOS IPHONE
 </div>
 
 <div class="admin-btn" onclick="loginAdmin()">ADMIN</div>
+<div class="admin-btn"
+style="bottom:80px;background:red;color:white"
+onclick="logoutAdmin()">
+SALIR
+</div>
 
 <footer>
 © 2026 Street Puffs
@@ -303,7 +308,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let admin = false;
+let admin = localStorage.getItem("admin") === "true";
 let currentCategory = "Todos";
 
 async function loadProducts(){
@@ -356,6 +361,8 @@ if(pass === "street123"){
 
 admin = true;
 
+localStorage.setItem("admin", "true");
+
 loadProducts();
 
 alert("Modo administrador activado");
@@ -365,6 +372,17 @@ alert("Modo administrador activado");
 alert("Contraseña incorrecta");
 
 }
+
+}
+window.logoutAdmin = function(){
+
+admin = false;
+
+localStorage.removeItem("admin");
+
+loadProducts();
+
+alert("Modo administrador desactivado");
 
 }
 
