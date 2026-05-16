@@ -7,6 +7,7 @@
 <title>Street Puffs</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -23,6 +24,7 @@ overflow-x:hidden;
 }
 
 /* fondos decorativos */
+
 body::before{
 content:"";
 position:fixed;
@@ -48,6 +50,7 @@ z-index:-1;
 }
 
 /* HEADER */
+
 header{
 height:100vh;
 display:flex;
@@ -62,6 +65,7 @@ position:relative;
 .logo-img{
 width:500px;
 max-width:95%;
+
 filter:
 drop-shadow(0 0 25px rgba(0,229,255,.35))
 drop-shadow(0 0 55px rgba(0,229,255,.15));
@@ -88,6 +92,7 @@ text-shadow:0 0 12px rgba(255,255,255,.08);
 }
 
 /* BOTÓN */
+
 .btn{
 margin-top:45px;
 padding:18px 55px;
@@ -134,6 +139,7 @@ transform:translateY(-4px) scale(1.05);
 }
 
 /* SECCIONES */
+
 .section{
 padding:90px 20px;
 max-width:1400px;
@@ -150,6 +156,7 @@ text-shadow:0 0 20px rgba(0,229,255,.15);
 }
 
 /* CATEGORÍAS */
+
 .categories{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -194,13 +201,15 @@ box-shadow:
 }
 
 /* PRODUCTS */
+
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:28px;
 }
 
-/* CARD (CORREGIDA) */
+/* CARD */
+
 .card{
 background:rgba(255,255,255,.045);
 backdrop-filter:blur(25px);
@@ -238,6 +247,7 @@ width:100%;
 height:280px;
 object-fit:cover;
 transition:.6s;
+
 filter:
 saturate(1.15)
 contrast(1.08)
@@ -267,7 +277,20 @@ background:linear-gradient(135deg,#00e5ff,#5b8cff);
 letter-spacing:.5px;
 }
 
+/* CARD AGREGAR */
+
+.add-card{
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:5rem;
+min-height:360px;
+background:rgba(0,255,255,.05);
+border:2px dashed rgba(0,255,255,.3);
+}
+
 /* MODAL */
+
 .modal{
 position:fixed;
 inset:0;
@@ -293,6 +316,7 @@ overflow:auto;
 }
 
 /* INPUTS */
+
 .modal-content input,
 .modal-content textarea,
 .modal-content select{
@@ -306,7 +330,8 @@ color:white;
 font-size:1rem;
 }
 
-/* BOTÓN */
+/* BOTÓN GUARDAR */
+
 .save-btn{
 width:100%;
 padding:16px;
@@ -318,6 +343,8 @@ font-weight:800;
 font-size:1rem;
 cursor:pointer;
 }
+
+/* WHATSAPP */
 
 .whatsapp{
 display:block;
@@ -331,416 +358,95 @@ font-weight:800;
 margin-top:22px;
 }
 
+/* BOTÓN ADMIN */
+
+.admin-btn{
+position:fixed;
+right:20px;
+padding:15px 22px;
+border-radius:60px;
+font-weight:800;
+cursor:pointer;
+z-index:999;
+backdrop-filter:blur(10px);
+transition:.3s;
+border:1px solid rgba(255,255,255,.08);
+
+background:linear-gradient(90deg,#00ffff,#0099ff);
+color:white;
+
+box-shadow:
+0 0 25px rgba(0,255,255,.25);
+
+bottom:20px;
+}
+
+.admin-btn:hover{
+transform:translateY(-3px) scale(1.04);
+}
+
+/* CLOSE */
+
+.close{
+float:right;
+cursor:pointer;
+font-size:1.7rem;
+color:#00ffff;
+}
+
+/* FOOTER */
+
+footer{
+padding:50px;
+text-align:center;
+color:#777;
+font-size:.9rem;
+}
+
 /* ANIMACIONES */
+
 @keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 @keyframes fadeCard{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 @keyframes floatLogo{
-0%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0);}
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
 }
 
 }
 
-
-</style>
-</head>
-<body>
-
-<header>
-<img 
-src="https://i.imgur.com/f4pVPlZ.png"
-class="logo-img"
-ondblclick="showAdminButton()"
->
-<p class="subtitle">PREMIUM VAPERS & ACCESORIOS</p>
-<button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">VER PRODUCTOS</button>
-</header>
-
-<section class="section" id="catalogo">
-<h2 class="title">Categorías</h2>
-
-<div class="categories">
-
-<div class="category" onclick="filterCategory('Todos')">
-TODOS
-</div>
-
-<div class="category" onclick="filterCategory('Vapers')">
-VAPERS
-</div>
-
-<div class="category" onclick="filterCategory('Accesorios iPhone')">
-ACCESORIOS IPHONE
-</div>
-
-</div>
-
-<h2 class="title">Productos</h2>
-
-<div class="products" id="products"></div>
-</section>
-
-<div class="modal" id="adminModal">
-<div class="modal-content">
-<span class="close" onclick="closeAdmin()">&times;</span>
-<h2>Agregar producto</h2>
-
-<input type="text" id="name" placeholder="Nombre del producto">
-
-<input type="text" id="price" placeholder="Precio">
-
-<input type="text" id="image" placeholder="URL de imagen">
-
-<textarea id="description" rows="5" placeholder="Sabores o descripción"></textarea>
-
-<select id="category">
-<option>Vapers</option>
-<option>Accesorios iPhone</option>
-</select>
-
-<button class="save-btn" onclick="saveProduct()">GUARDAR PRODUCTO</button>
-</div>
-</div>
-
-<div class="modal" id="productModal">
-<div class="modal-content product-view" id="productContent"></div>
-</div>
-
-<div 
-class="admin-btn" 
-id="adminButton"
-onclick="loginAdmin()"
-style="display:none;">
-ADMIN
-</div>
-<div 
-class="admin-btn"
-id="logoutButton"
-style="bottom:80px;background:red;color:white;display:none;"
-onclick="logoutAdmin()">
-SALIR
-</div>
-
-<footer>
-© 2026 Street Puffs
-</footer>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  updateDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
-  authDomain: "street-puffs-9546f.firebaseapp.com",
-  projectId: "street-puffs-9546f",
-  storageBucket: "street-puffs-9546f.firebasestorage.app",
-  messagingSenderId: "544227766279",
-  appId: "1:544227766279:web:21d28d3c668736a90e7aa2",
-  measurementId: "G-4VWG2XW150"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let admin = localStorage.getItem("admin") === "true";
-if(admin){
-  document.getElementById("logoutButton").style.display = "block";
-}
-let currentCategory = "Todos";
-let editingProductId = null;
-
-async function loadProducts(){
-
-const container = document.getElementById("products");
-
-container.innerHTML = "";
-
-const querySnapshot = await getDocs(collection(db, "products"));
-
-querySnapshot.forEach((firebaseDoc)=>{
-
-const product = firebaseDoc.data();
-
-product.id = firebaseDoc.id;
-
-if(currentCategory !== "Todos" && product.category !== currentCategory){
-return;
-}
-
-container.innerHTML += `
-<div class="card" onclick='openProduct(${JSON.stringify(product)})'>
-<img src="${product.image}">
-<div class="card-content">
-<h3>${product.name}</h3>
-<div class="price">${product.price}</div>
-</div>
-</div>
-`;
-
-});
-
-if(admin){
-
-container.innerHTML += `
-<div class="card add-card" onclick="openAdmin()">
-+
-</div>
-`;
-
-}
-
-}
-window.showAdminButton = function(){
-
-document.getElementById("adminButton").style.display = "block";
-
-setTimeout(()=>{
-document.getElementById("adminButton").style.display = "none";
-},10000);
-
-}
-window.loginAdmin = function(){
-
-const pass = prompt("Ingresar contraseña admin");
-
-if(pass === "street123"){
-
-admin = true;
-
-localStorage.setItem("admin", "true");
-document.getElementById("logoutButton").style.display = "block";
-
-loadProducts();
-
-alert("Modo administrador activado");
-
-}else{
-
-alert("Contraseña incorrecta");
-
-}
-
-}
-window.logoutAdmin = function(){
-
-admin = false;
-
-localStorage.removeItem("admin");
-document.getElementById("logoutButton").style.display = "none";
-document.getElementById("adminButton").style.display = "none";
-
-loadProducts();
-
-alert("Modo administrador desactivado");
-
-}
-
-window.openAdmin = function(){
-
-document.getElementById("adminModal").style.display = "flex";
-
-}
-
-window.closeAdmin = function(){
-
-document.getElementById("adminModal").style.display = "none";
-
-document.getElementById("name").value = "";
-
-document.getElementById("price").value = "";
-
-document.getElementById("image").value = "";
-
-document.getElementById("description").value = "";
-
-document.getElementById("category").value = "Vapers";
-
-document.querySelector(".save-btn").innerText = "GUARDAR PRODUCTO";
-
-editingProductId = null;
-
-}
-
-window.saveProduct = async function(){
-
-if(window.savingProduct) return;
-
-window.savingProduct = true;
-
-const product = {
-
-name:document.getElementById("name").value,
-price:document.getElementById("price").value,
-image:document.getElementById("image").value,
-description:document.getElementById("description").value,
-category:document.getElementById("category").value
-
-};
-
-if(editingProductId){
-
-await updateDoc(
-doc(db, "products", editingProductId),
-product
-);
-
-alert("Producto actualizado");
-
-editingProductId = null;
-
-}else{
-
-await addDoc(collection(db, "products"), product);
-
-alert("Producto agregado");
-
-}
-
-closeAdmin();
-
-loadProducts();
-
-window.savingProduct = false;
-
-}
-
-window.editProduct = function(product){
-
-editingProductId = product.id;
-
-document.querySelector(".save-btn").innerText = "GUARDAR CAMBIOS";
-
-document.getElementById("name").value = product.name;
-
-document.getElementById("price").value = product.price;
-
-document.getElementById("image").value = product.image;
-
-document.getElementById("description").value = product.description;
-
-document.getElementById("category").value = product.category;
-
-openAdmin();
-
-closeProduct();
-
-}
-
-window.openProduct = function(product){
-
-document.getElementById("productContent").innerHTML = `
-<span class="close" onclick="closeProduct()">&times;</span>
-
-<img 
-src="${product.image}" 
-onerror="this.src='https://i.imgur.com/8Km9tLL.png'"
->
-
-<h2>${product.name}</h2>
-
-<div class="flavors">${product.description}</div>
-
-<div class="price">${product.price}</div>
-
-${admin ? `
-
-<button
-onclick='editProduct(${JSON.stringify(product)})'
-style="
-width:100%;
-padding:14px;
-margin-top:15px;
-border:none;
-border-radius:15px;
-background:#ff9800;
-color:white;
-font-weight:700;
-cursor:pointer;
-">
-EDITAR PRODUCTO
-</button>
-
-<button
-onclick="deleteProduct('${product.id}')"
-style="
-width:100%;
-padding:14px;
-margin-top:15px;
-border:none;
-border-radius:15px;
-background:red;
-color:white;
-font-weight:700;
-cursor:pointer;
-">
-ELIMINAR PRODUCTO
-</button>
-` : ""}
-
-<a class="whatsapp"
-href="https://api.whatsapp.com/send?phone=5493814157720&text=Hola,%20quiero%20consultar%20por%20${encodeURIComponent(product.name)}"
-target="_blank">
-
-Consultar por WhatsApp
-
-</a>
-`;
-
-document.getElementById("productModal").style.display = "flex";
-
-}
-
-window.closeProduct = function(){
-
-document.getElementById("productModal").style.display = "none";
-
-}
-
-window.deleteProduct = async function(id){
-
-const confirmar = confirm("Eliminar producto?");
-
-if(!confirmar) return;
-
-await deleteDoc(doc(db, "products", id));
-
-closeProduct();
-
-loadProducts();
-
-alert("Producto eliminado");
-
-}
-
-window.filterCategory = function(category){
-
-currentCategory = category;
-
-loadProducts();
-
-}
-
-loadProducts();
-
-</script>
-
-</body>
-</html>
+</style></html>
