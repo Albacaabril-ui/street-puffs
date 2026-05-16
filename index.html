@@ -292,9 +292,9 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
   doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCN6YuuMw7q8QY1SfBQj4aADOFLKk_AMVk",
   authDomain: "street-puffs-9546f.firebaseapp.com",
@@ -310,6 +310,7 @@ const db = getFirestore(app);
 
 let admin = localStorage.getItem("admin") === "true";
 let currentCategory = "Todos";
+let editingProductId = null;
 
 async function loadProducts(){
 
@@ -396,6 +397,18 @@ window.closeAdmin = function(){
 
 document.getElementById("adminModal").style.display = "none";
 
+document.getElementById("name").value = "";
+
+document.getElementById("price").value = "";
+
+document.getElementById("image").value = "";
+
+document.getElementById("description").value = "";
+
+document.getElementById("category").value = "Vapers";
+
+editingProductId = null;
+
 }
 
 window.saveProduct = async function(){
@@ -405,22 +418,59 @@ if(window.savingProduct) return;
 window.savingProduct = true;
 
 const product = {
+
 name:document.getElementById("name").value,
 price:document.getElementById("price").value,
 image:document.getElementById("image").value,
 description:document.getElementById("description").value,
 category:document.getElementById("category").value
+
 };
 
+if(editingProductId){
+
+await updateDoc(
+doc(db, "products", editingProductId),
+product
+);
+
+alert("Producto actualizado");
+
+editingProductId = null;
+
+}else{
+
 await addDoc(collection(db, "products"), product);
+
+alert("Producto agregado");
+
+}
 
 closeAdmin();
 
 loadProducts();
 
-alert("Producto agregado");
-
 window.savingProduct = false;
+
+}
+
+window.editProduct = function(product){
+
+editingProductId = product.id;
+
+document.getElementById("name").value = product.name;
+
+document.getElementById("price").value = product.price;
+
+document.getElementById("image").value = product.image;
+
+document.getElementById("description").value = product.description;
+
+document.getElementById("category").value = product.category;
+
+openAdmin();
+
+closeProduct();
 
 }
 
@@ -438,6 +488,23 @@ document.getElementById("productContent").innerHTML = `
 <div class="price">${product.price}</div>
 
 ${admin ? `
+
+<button
+onclick='editProduct(${JSON.stringify(product)})'
+style="
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:#ff9800;
+color:white;
+font-weight:700;
+cursor:pointer;
+">
+EDITAR PRODUCTO
+</button>
+
 <button
 onclick="deleteProduct('${product.id}')"
 style="
