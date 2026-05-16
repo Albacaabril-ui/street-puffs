@@ -487,6 +487,48 @@ font-size:1.7rem;
 color:#00ffff;
 }
 
+/* TOAST */
+
+.toast{
+position:fixed;
+left:50%;
+bottom:30px;
+transform:translateX(-50%) translateY(120px);
+
+background:
+linear-gradient(
+135deg,
+rgba(0,255,255,.18),
+rgba(0,120,255,.18)
+);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.12);
+
+padding:16px 28px;
+
+border-radius:18px;
+
+color:white;
+font-weight:700;
+letter-spacing:.5px;
+
+z-index:5000;
+
+opacity:0;
+
+transition:.45s;
+
+box-shadow:
+0 10px 35px rgba(0,229,255,.2);
+}
+
+.toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+
 /* FOOTER */
 
 footer{
@@ -652,6 +694,8 @@ onclick="logoutAdmin()">
 SALIR
 </div>
 
+<div class="toast" id="toast"></div>
+
 <footer>
 © 2026 Street Puffs
 </footer>
@@ -748,12 +792,28 @@ entry.target.classList.add("show");
 },{
 threshold:.15
 });
-
 document.querySelectorAll(".card").forEach((card)=>{
 
 observer.observe(card);
 
 });
+
+}
+
+function showToast(message){
+
+const toast = document.getElementById("toast");
+
+toast.textContent = message;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
 }
 
 window.showAdminButton = function(){
@@ -782,11 +842,11 @@ document.getElementById("logoutButton").style.display = "block";
 
 loadProducts();
 
-alert("Modo administrador activado");
+showToast("Modo administrador activado");
 
 }else{
 
-alert("Contraseña incorrecta");
+showToast("Contraseña incorrecta");
 
 }
 
@@ -804,7 +864,7 @@ document.getElementById("adminButton").style.display = "none";
 
 loadProducts();
 
-alert("Modo administrador desactivado");
+showToast("Sesión cerrada");
 
 }
 
@@ -855,7 +915,7 @@ doc(db,"products",editingProductId),
 product
 );
 
-alert("Producto actualizado");
+showToast("Producto actualizado ✓");
 
 editingProductId = null;
 
@@ -863,7 +923,7 @@ editingProductId = null;
 
 await addDoc(collection(db,"products"),product);
 
-alert("Producto agregado");
+showToast("Producto agregado ✓");
 
 }
 
@@ -984,7 +1044,7 @@ closeProduct();
 
 loadProducts();
 
-alert("Producto eliminado");
+showToast("Producto eliminado");
 
 }
 
