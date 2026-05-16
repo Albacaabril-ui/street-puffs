@@ -171,8 +171,21 @@ overflow:hidden;
 cursor:pointer;
 transition:.4s;
 position:relative;
+animation:fadeCard .5s ease;
 }
 
+.card::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(255,255,255,.08),
+transparent
+);
+opacity:.5;
+pointer-events:none;
+}
 .card:hover{
 transform:translateY(-8px);
 border-color:#00ffff55;
@@ -336,12 +349,26 @@ cursor:pointer;
 z-index:999;
 backdrop-filter:blur(10px);
 transition:.3s;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.admin-btn:first-of-type{
+bottom:20px;
+background:linear-gradient(90deg,#00ffff,#0099ff);
+color:white;
+box-shadow:0 0 25px rgba(0,255,255,.25);
+}
+
+.admin-btn:last-of-type{
+bottom:85px;
+background:linear-gradient(90deg,#ff3b3b,#ff0000);
+color:white;
+box-shadow:0 0 25px rgba(255,0,0,.18);
 }
 
 .admin-btn:hover{
-transform:scale(1.05);
+transform:translateY(-3px) scale(1.04);
 }
-
 footer{
 padding:50px;
 text-align:center;
@@ -362,6 +389,7 @@ transform:translateY(0);
 }
 
 }
+
 </style>
 </head>
 <body>
@@ -434,6 +462,19 @@ SALIR
 </footer>
 
 <script type="module">
+@keyframes fadeCard{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -558,6 +599,8 @@ document.getElementById("description").value = "";
 
 document.getElementById("category").value = "Vapers";
 
+document.querySelector(".save-btn").innerText = "GUARDAR PRODUCTO";
+
 editingProductId = null;
 
 }
@@ -609,6 +652,8 @@ window.editProduct = function(product){
 
 editingProductId = product.id;
 
+document.querySelector(".save-btn").innerText = "GUARDAR CAMBIOS";
+
 document.getElementById("name").value = product.name;
 
 document.getElementById("price").value = product.price;
@@ -630,7 +675,10 @@ window.openProduct = function(product){
 document.getElementById("productContent").innerHTML = `
 <span class="close" onclick="closeProduct()">&times;</span>
 
-<img src="${product.image}">
+<img 
+src="${product.image}" 
+onerror="this.src='https://i.imgur.com/8Km9tLL.png'"
+>
 
 <h2>${product.name}</h2>
 
