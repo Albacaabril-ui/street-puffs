@@ -198,6 +198,7 @@ width:100%;
 height:260px;
 object-fit:cover;
 transition:.5s;
+filter:saturate(1.1) contrast(1.05);
 }
 
 .card:hover img{
@@ -390,6 +391,19 @@ transform:translateY(0);
 
 }
 
+@keyframes fadeCard{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
 </style>
 </head>
 <body>
@@ -462,19 +476,6 @@ SALIR
 </footer>
 
 <script type="module">
-@keyframes fadeCard{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
