@@ -816,7 +816,9 @@ entry.target.classList.add("show");
 },{
 threshold:.15
 });
-document.querySelectorAll(".card").forEach((card)=>{
+document.querySelectorAll(".card").forEach((card,index)=>{
+
+card.style.transitionDelay = `${index * 0.08}s`;
 
 observer.observe(card);
 
