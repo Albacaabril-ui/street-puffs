@@ -211,35 +211,57 @@ gap:28px;
 /* CARD */
 
 .card{
-background:rgba(255,255,255,.045);
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.03)
+);
+
 backdrop-filter:blur(25px);
+-webkit-backdrop-filter:blur(25px);
+
 border:1px solid rgba(255,255,255,.08);
+
 border-radius:32px;
 overflow:hidden;
 cursor:pointer;
 transition:.45s;
 position:relative;
 animation:fadeCard .5s ease;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.35),
+0 0 20px rgba(0,229,255,.04);
+
 }
 
 .card::before{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(
-180deg,
-rgba(255,255,255,.08),
-transparent
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.12),
+transparent 35%
 );
-opacity:.5;
+
+opacity:.8;
 pointer-events:none;
 }
 
 .card:hover{
-transform:translateY(-10px) scale(1.015);
-border-color:#00e5ff66;
+transform:
+translateY(-10px)
+scale(1.02);
+
+border-color:#00e5ff88;
+
 box-shadow:
-0 20px 50px rgba(0,229,255,.15);
+0 25px 60px rgba(0,229,255,.18),
+0 0 35px rgba(0,229,255,.12);
 }
 
 .card img{
