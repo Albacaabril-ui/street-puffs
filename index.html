@@ -49,6 +49,110 @@ left:-250px;
 z-index:-1;
 }
 
+/* PARTICULAS */
+
+.particles{
+position:fixed;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:-1;
+}
+
+.particles span{
+position:absolute;
+display:block;
+width:6px;
+height:6px;
+border-radius:50%;
+
+background:rgba(0,229,255,.35);
+
+box-shadow:
+0 0 10px rgba(0,229,255,.5),
+0 0 20px rgba(0,119,255,.3);
+
+animation:floatParticle linear infinite;
+bottom:-50px;
+}
+
+/* posiciones */
+
+.particles span:nth-child(1){
+left:10%;
+animation-duration:14s;
+width:4px;
+height:4px;
+}
+
+.particles span:nth-child(2){
+left:20%;
+animation-duration:18s;
+animation-delay:2s;
+}
+
+.particles span:nth-child(3){
+left:35%;
+animation-duration:16s;
+width:8px;
+height:8px;
+}
+
+.particles span:nth-child(4){
+left:50%;
+animation-duration:22s;
+animation-delay:1s;
+}
+
+.particles span:nth-child(5){
+left:65%;
+animation-duration:15s;
+}
+
+.particles span:nth-child(6){
+left:78%;
+animation-duration:19s;
+width:5px;
+height:5px;
+}
+
+.particles span:nth-child(7){
+left:88%;
+animation-duration:17s;
+animation-delay:3s;
+}
+
+.particles span:nth-child(8){
+left:95%;
+animation-duration:20s;
+}
+
+/* animacion */
+
+@keyframes floatParticle{
+
+0%{
+transform:
+translateY(0)
+scale(1);
+
+opacity:0;
+}
+
+10%{
+opacity:1;
+}
+
+100%{
+transform:
+translateY(-120vh)
+scale(1.8);
+
+opacity:0;
+}
+
+}
+
 /* HEADER */
 
 header{
@@ -741,6 +845,18 @@ SALIR
 
 <div class="toast" id="toast"></div>
 
+<div class="particles">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
 <footer>
 © 2026 Street Puffs
 </footer>
