@@ -633,6 +633,8 @@ display:block;
 }
 /* BOTÓN ADMIN */
 
+/* BOTÓN ADMIN */
+
 .admin-btn{
 position:fixed;
 right:20px;
@@ -656,6 +658,20 @@ bottom:20px;
 
 .admin-btn:hover{
 transform:translateY(-3px) scale(1.04);
+}
+
+/* BOTON AGREGAR PRODUCTO */
+
+.add-product-btn{
+width:60px;
+height:60px;
+padding:0;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:2rem;
+font-weight:900;
+border-radius:50%;
 }
 
 /* CLOSE */
@@ -874,6 +890,19 @@ style="bottom:80px;background:red;color:white;display:none;"
 onclick="logoutAdmin()">
 SALIR
 </div>
+<div
+
+class="admin-btn add-product-btn"
+
+id="addProductButton"
+
+style="bottom:140px;display:none;"
+
+onclick="openAdmin()">
+
++
+
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -922,7 +951,11 @@ const db = getFirestore(app);
 let admin = localStorage.getItem("admin") === "true";
 
 if(admin){
-  document.getElementById("logoutButton").style.display = "block";
+
+document.getElementById("logoutButton").style.display = "block";
+
+document.getElementById("addProductButton").style.display = "flex";
+
 }
 
 let currentCategory = "Todos";
@@ -961,15 +994,7 @@ container.innerHTML += `
 
 });
 
-if(admin){
 
-container.innerHTML += `
-<div class="card add-card" onclick="openAdmin()">
-+
-</div>
-`;
-
-}
 const observer = new IntersectionObserver((entries)=>{
 
 entries.forEach((entry)=>{
@@ -1035,6 +1060,8 @@ localStorage.setItem("admin","true");
 
 document.getElementById("logoutButton").style.display = "block";
 
+document.getElementById("addProductButton").style.display = "flex";
+
 loadProducts();
 
 showToast("Modo administrador activado");
@@ -1056,6 +1083,8 @@ localStorage.removeItem("admin");
 document.getElementById("logoutButton").style.display = "none";
 
 document.getElementById("adminButton").style.display = "none";
+
+document.getElementById("addProductButton").style.display = "none";
 
 loadProducts();
 
