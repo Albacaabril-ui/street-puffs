@@ -200,6 +200,24 @@ box-shadow:
 0 10px 35px rgba(0,229,255,.14);
 }
 
+.category.active{
+
+background:
+linear-gradient(
+135deg,
+rgba(0,229,255,.22),
+rgba(0,119,255,.18)
+);
+
+border-color:#00e5ff;
+
+box-shadow:
+0 0 25px rgba(0,229,255,.22);
+
+transform:translateY(-4px);
+
+}
+
 /* PRODUCTS */
 
 .products{
@@ -1052,11 +1070,33 @@ window.filterCategory = function(category){
 
 currentCategory = category;
 
+document.querySelectorAll(".category").forEach((btn)=>{
+
+btn.classList.remove("active");
+
+const text = btn.textContent.trim();
+
+if(
+(category === "Todos" && text === "TODOS")
+||
+(category === "Vapers" && text === "VAPERS")
+||
+(category === "Accesorios iPhone" && text === "ACCESORIOS IPHONE")
+){
+
+btn.classList.add("active");
+
+}
+
+});
+
 loadProducts();
 
 }
 
 loadProducts();
+
+document.querySelector(".category").classList.add("active");
 
 </script>
 </body>
