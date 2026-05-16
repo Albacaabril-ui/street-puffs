@@ -547,6 +547,33 @@ background:rgba(0,255,255,.05);
 border:2px dashed rgba(0,255,255,.3);
 }
 
+/* SIN STOCK */
+
+.stock-badge{
+
+position:absolute;
+top:10px;
+left:10px;
+
+background:#ff2b2b;
+
+color:white;
+
+padding:8px 12px;
+
+border-radius:12px;
+
+font-size:.7rem;
+font-weight:900;
+
+letter-spacing:1px;
+
+z-index:20;
+
+box-shadow:
+0 0 15px rgba(255,0,0,.45);
+
+}
 /* MODAL */
 
 .modal{
@@ -1103,6 +1130,12 @@ return;
 container.innerHTML += `
 <div class="card" onclick='openProduct(${JSON.stringify(product)})'>
 
+${product.outOfStock ? `
+<div class="stock-badge">
+SIN STOCK
+</div>
+` : ""}
+
 <img src="${product.image}">
 
 <div class="card-content">
@@ -1209,6 +1242,8 @@ document.getElementById("description").value = "";
 
 document.getElementById("category").value = "Vapers";
 
+document.getElementById("outOfStock").checked = false;
+
 editingProductId = null;
 
 }
@@ -1225,7 +1260,9 @@ name:document.getElementById("name").value,
 price:document.getElementById("price").value,
 image:document.getElementById("image").value,
 description:document.getElementById("description").value,
-category:document.getElementById("category").value
+category:document.getElementById("category").value,
+
+outOfStock:document.getElementById("outOfStock").checked
 
 };
 
@@ -1269,6 +1306,8 @@ document.getElementById("image").value = product.image;
 document.getElementById("description").value = product.description;
 
 document.getElementById("category").value = product.category;
+
+document.getElementById("outOfStock").checked = product.outOfStock || false;
 
 openAdmin();
 
