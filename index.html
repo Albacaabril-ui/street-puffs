@@ -218,6 +218,9 @@ rgba(255,255,255,.08),
 rgba(255,255,255,.03)
 );
 
+opacity:0;
+transform:translateY(40px);
+
 backdrop-filter:blur(25px);
 -webkit-backdrop-filter:blur(25px);
 
@@ -551,6 +554,11 @@ opacity:1;
 transform:scale(1);
 }
 
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
 }
 
 </style>
@@ -969,6 +977,32 @@ loadProducts();
 }
 
 loadProducts();
+
+const observer = new IntersectionObserver((entries)=>{
+
+entries.forEach((entry)=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
+},{
+threshold:.15
+});
+
+setTimeout(()=>{
+
+document.querySelectorAll(".card").forEach((card)=>{
+
+observer.observe(card);
+
+});
+
+},300);
 
 </script>
 </body>
