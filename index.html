@@ -17,7 +17,7 @@ scroll-behavior:smooth;
 
 body{
 background:
-radial-gradient(circle at top,#111827 0%,#06080d 45%,#000000 100%);
+radial-gradient(circle at top,#0f1720 0%,#070b10 45%,#000000 100%);
 }
 color:white;
 overflow-x:hidden;
@@ -56,17 +56,6 @@ align-items:center;
 text-align:center;
 padding:20px;
 position:relative;
-}
-
-header::before{
-content:"";
-position:absolute;
-width:450px;
-height:450px;
-background:radial-gradient(circle,#00e5ff22 0%,transparent 70%);
-filter:blur(50px);
-z-index:-1;
-animation:pulseGlow 4s ease-in-out infinite;
 }
 
 .logo-img{
@@ -239,7 +228,6 @@ transform:translateY(-10px) scale(1.015);
 border-color:#00e5ff66;
 box-shadow:
 0 20px 50px rgba(0,229,255,.15);
-background:rgba(255,255,255,.06);
 }
 
 .card img{
@@ -471,24 +459,6 @@ transform:translateY(0px);
 
 }
 
-@keyframes pulseGlow{
-
-0%{
-transform:scale(1);
-opacity:.7;
-}
-
-50%{
-transform:scale(1.12);
-opacity:1;
-}
-
-100%{
-transform:scale(1);
-opacity:.7;
-}
-
-}
 
 </style>
 </head>
