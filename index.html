@@ -355,7 +355,57 @@ box-shadow:
 }
 
 /* PRODUCTS */
+/* BUSCADOR */
 
+.search-box{
+margin-bottom:35px;
+display:flex;
+justify-content:center;
+}
+
+.search-box input{
+width:100%;
+max-width:500px;
+
+padding:18px 24px;
+
+border:none;
+outline:none;
+
+border-radius:22px;
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:blur(15px);
+
+color:white;
+
+font-size:1rem;
+font-weight:600;
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.25s;
+
+box-shadow:
+0 0 20px rgba(0,229,255,.05);
+}
+
+.search-box input::placeholder{
+color:#9fb4c2;
+}
+
+.search-box input:focus{
+
+border-color:#00e5ff;
+
+box-shadow:
+0 0 15px rgba(0,229,255,.25),
+0 0 40px rgba(0,119,255,.12);
+
+transform:scale(1.01);
+}
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -843,6 +893,16 @@ ACCESORIOS IPHONE
 
 <h2 class="title">Productos</h2>
 
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Buscar productos..."
+oninput="searchProducts()">
+
+</div>
+
 <div class="products" id="products"></div>
 
 </section>
@@ -959,6 +1019,9 @@ document.getElementById("addProductButton").style.display = "flex";
 }
 
 let currentCategory = "Todos";
+
+let searchText = "";
+
 let editingProductId = null;
 
 async function loadProducts(){
@@ -975,7 +1038,11 @@ const product = firebaseDoc.data();
 
 product.id = firebaseDoc.id;
 
-if(currentCategory !== "Todos" && product.category !== currentCategory){
+if(
+(currentCategory !== "Todos" && product.category !== currentCategory)
+||
+(product.name.toLowerCase().includes(searchText) === false)
+){
 return;
 }
 
@@ -1295,6 +1362,17 @@ btn.classList.add("active");
 }
 
 });
+
+loadProducts();
+
+}
+
+window.searchProducts = function(){
+
+searchText = document
+.getElementById("searchInput")
+.value
+.toLowerCase();
 
 loadProducts();
 
