@@ -408,8 +408,11 @@ transform:scale(1.01);
 }
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:28px;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:16px;
 }
 
 /* CARD */
@@ -505,7 +508,7 @@ opacity:.9;
 
 .card img{
 width:100%;
-height:280px;
+height:190px;
 object-fit:cover;
 
 transition:
@@ -525,17 +528,17 @@ transform:scale(1.04);
 }
 
 .card-content{
-padding:20px;
+padding:14px;
 }
 
 .card h3{
-font-size:1.05rem;
+font-size:9rem;
 margin-bottom:12px;
 font-weight:700;
 }
 
 .price{
-font-size:1.45rem;
+font-size:1.1rem;
 font-weight:900;
 background:linear-gradient(135deg,#00e5ff,#5b8cff);
 -webkit-background-clip:text;
