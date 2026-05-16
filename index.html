@@ -470,8 +470,10 @@ onclick="loginAdmin()"
 style="display:none;">
 ADMIN
 </div>
-<div class="admin-btn"
-style="bottom:80px;background:red;color:white"
+<div 
+class="admin-btn"
+id="logoutButton"
+style="bottom:80px;background:red;color:white;display:none;"
 onclick="logoutAdmin()">
 SALIR
 </div>
@@ -509,6 +511,10 @@ const db = getFirestore(app);
 let admin = localStorage.getItem("admin") === "true";
 if(localStorage.getItem("adminVisible") === "true"){
   document.getElementById("adminButton").style.display = "block";
+}
+
+if(admin){
+  document.getElementById("logoutButton").style.display = "block";
 }
 let currentCategory = "Todos";
 let editingProductId = null;
@@ -558,7 +564,9 @@ window.showAdminButton = function(){
 
 document.getElementById("adminButton").style.display = "block";
 
-localStorage.setItem("adminVisible", "true");
+setTimeout(()=>{
+document.getElementById("adminButton").style.display = "none";
+},10000);
 
 }
 window.loginAdmin = function(){
@@ -570,6 +578,7 @@ if(pass === "street123"){
 admin = true;
 
 localStorage.setItem("admin", "true");
+document.getElementById("logoutButton").style.display = "block";
 
 loadProducts();
 
@@ -587,6 +596,8 @@ window.logoutAdmin = function(){
 admin = false;
 
 localStorage.removeItem("admin");
+document.getElementById("logoutButton").style.display = "none";
+document.getElementById("adminButton").style.display = "none";
 
 loadProducts();
 
