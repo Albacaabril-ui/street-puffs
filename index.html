@@ -733,7 +733,27 @@ container.innerHTML += `
 `;
 
 }
+const observer = new IntersectionObserver((entries)=>{
 
+entries.forEach((entry)=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
+},{
+threshold:.15
+});
+
+document.querySelectorAll(".card").forEach((card)=>{
+
+observer.observe(card);
+
+});
 }
 
 window.showAdminButton = function(){
@@ -977,32 +997,6 @@ loadProducts();
 }
 
 loadProducts();
-
-const observer = new IntersectionObserver((entries)=>{
-
-entries.forEach((entry)=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},{
-threshold:.15
-});
-
-setTimeout(()=>{
-
-document.querySelectorAll(".card").forEach((card)=>{
-
-observer.observe(card);
-
-});
-
-},300);
 
 </script>
 </body>
