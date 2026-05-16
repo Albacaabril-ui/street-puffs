@@ -422,8 +422,8 @@ rgba(255,255,255,.08),
 rgba(255,255,255,.03)
 );
 
-opacity:0;
-transform:translateY(20px);
+opacity:1;
+transform:none;
 
 backdrop-filter:blur(12px);
 -webkit-backdrop-filter:blur(12px);
@@ -840,12 +840,6 @@ transform:translateY(0);
 
 }
 
-.card.show{
-opacity:1;
-transform:translateY(0);
-will-change: transform, opacity;
-}
-
 </style>
 </head>
 
@@ -1054,30 +1048,6 @@ container.innerHTML += `
 
 </div>
 `;
-
-});
-
-
-const observer = new IntersectionObserver((entries)=>{
-
-entries.forEach((entry)=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},{
-threshold:.15
-});
-document.querySelectorAll(".card").forEach((card,index)=>{
-
-card.style.transitionDelay = `${index * 0.02}s`;
-
-observer.observe(card);
 
 });
 
