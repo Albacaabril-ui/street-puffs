@@ -324,7 +324,6 @@ opacity:1;
 }
 
 .category:hover{
-transform:translateY(-6px) scale(1.02);
 border-color:#00e5ff88;
 box-shadow:
 0 10px 35px rgba(0,229,255,.14);
@@ -342,10 +341,6 @@ rgba(0,119,255,.24)
 border-color:#00ffff;
 
 color:#ffffff;
-
-transform:
-translateY(-4px)
-scale(1.03);
 
 box-shadow:
 0 0 12px rgba(0,229,255,.35),
@@ -409,7 +404,7 @@ transform:scale(1.01);
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:14px;
+gap:12px;
 }
 
 /* CARD */
@@ -433,7 +428,10 @@ border:1px solid rgba(255,255,255,.08);
 border-radius:22px;
 overflow:hidden;
 cursor:pointer;
-transition:.25s;
+transition:
+transform .25s,
+box-shadow .25s,
+border-color .25s;
 position:relative;
 
 box-shadow:
@@ -485,9 +483,7 @@ filter:blur(8px);
 
 .card:hover{
 
-transform:
-translateY(-10px)
-scale(1.02);
+transform:translateY(-4px);
 
 border-color:#00e5ffcc;
 
@@ -517,16 +513,16 @@ display:block;
 }
 
 .card:hover img{
-transform:scale(1.04);
+transform:scale(1.02);
 }
 
 .card-content{
-padding:12px;
+padding:10px;
 }
 
 .card h3{
-font-size:.88rem;
-margin-bottom:12px;
+font-size:.82rem;
+margin-bottom:6px;
 font-weight:700;
 }
 
