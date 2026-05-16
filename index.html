@@ -57,14 +57,10 @@ padding:20px;
 position:relative;
 }
 
-.logo{
-font-size:5rem;
-font-weight:900;
-letter-spacing:4px;
-background:linear-gradient(90deg,#00ffff,#ffffff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-text-shadow:0 0 25px rgba(0,255,255,.25);
+.logo-img{
+width:320px;
+max-width:90%;
+filter:drop-shadow(0 0 25px rgba(0,255,255,.25));
 animation:fadeUp 1s ease;
 }
 
@@ -227,7 +223,6 @@ background:linear-gradient(90deg,#00ffff,#00a2ff);
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:5rem;
 min-height:360px;
 background:rgba(0,255,255,.05);
 border:2px dashed rgba(0,255,255,.3);
@@ -406,9 +401,11 @@ transform:translateY(0);
 <body>
 
 <header>
-<h1 class="logo" ondblclick="showAdminButton()">
-STREET PUFFS
-</h1>
+<img 
+src="https://imgur.com/a/3ev3sk7#u1Ijkwi"
+class="logo-img"
+ondblclick="showAdminButton()"
+>
 <p class="subtitle">PREMIUM VAPERS & ACCESORIOS</p>
 <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">VER PRODUCTOS</button>
 </header>
