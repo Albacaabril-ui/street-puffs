@@ -253,9 +253,9 @@ border:1px solid rgba(255,255,255,.08);
 border-radius:32px;
 overflow:hidden;
 cursor:pointer;
-transition:.45s;
+transition:.25s;
 position:relative;
-animation:fadeCard .5s ease;
+animation:fadeCard .25s ease;
 
 box-shadow:
 0 10px 30px rgba(0,0,0,.35),
@@ -563,7 +563,7 @@ z-index:5000;
 
 opacity:0;
 
-transition:.45s;
+transition:.25s;
 
 box-shadow:
 0 10px 35px rgba(0,229,255,.2);
@@ -839,7 +839,7 @@ threshold:.15
 });
 document.querySelectorAll(".card").forEach((card,index)=>{
 
-card.style.transitionDelay = `${index * 0.08}s`;
+card.style.transitionDelay = `${index * 0.02}s`;
 
 observer.observe(card);
 
