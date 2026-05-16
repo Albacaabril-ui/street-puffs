@@ -664,7 +664,7 @@ PREMIUM VAPERS & ACCESORIOS
 </p>
 
 <button class="btn"
-onclick="document.getElementById('catalogo').scrollIntoView()">
+onclick="scrollCatalogo()">
 VER PRODUCTOS
 </button>
 </header>
@@ -1120,6 +1120,15 @@ btn.classList.add("active");
 });
 
 loadProducts();
+
+}
+
+window.scrollCatalogo = function(){
+
+document.getElementById("catalogo").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
 }
 
