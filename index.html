@@ -179,10 +179,82 @@ background-position:0% 50%;
 }
 
 }
+
+/* TOP BANNER */
+
+.top-banner{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:42px;
+
+overflow:hidden;
+
+z-index:5000;
+
+background:
+linear-gradient(
+90deg,
+#00e5ff,
+#7b2fff,
+#00e5ff
+);
+
+box-shadow:
+0 0 20px rgba(0,229,255,.35);
+
+display:flex;
+align-items:center;
+
+}
+
+.banner-track{
+
+display:flex;
+gap:80px;
+
+white-space:nowrap;
+
+min-width:max-content;
+
+padding-left:100%;
+
+animation:bannerMove 18s linear infinite;
+
+}
+
+.banner-track span{
+
+font-weight:800;
+font-size:.9rem;
+letter-spacing:1px;
+color:white;
+
+text-shadow:
+0 0 10px rgba(255,255,255,.35);
+
+}
+
+@keyframes bannerMove{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
+}
+
 /* HEADER */
 
 header{
-height:100vh;
+height:calc(100vh - 42px);
+margin-top:42px;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -909,6 +981,23 @@ transform:translateY(0);
 </head>
 
 <body>
+<div class="top-banner">
+
+<div class="banner-track">
+
+<span>🔥 NUEVOS INGRESOS 🔥</span>
+
+<span>🚚 ENVÍOS DISPONIBLES 🚚</span>
+
+<span>⚡ STREET PUFFS ⚡</span>
+
+<span>💨 VAPERS PREMIUM 💨</span>
+
+<span>📲 CONSULTAS POR WHATSAPP 📲</span>
+
+</div>
+
+</div>
 <header>
 <img 
 src="https://i.imgur.com/f4pVPlZ.png"
