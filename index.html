@@ -1017,6 +1017,85 @@ opacity:1;
 transform:translateX(-50%) translateY(0);
 }
 
+/* FLOATING WHATSAPP */
+
+.floating-whatsapp{
+
+position:fixed;
+
+right:20px;
+bottom:20px;
+
+width:70px;
+height:70px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+border-radius:50%;
+
+text-decoration:none;
+
+font-size:2rem;
+
+background:
+linear-gradient(
+135deg,
+#00e676,
+#00c853
+);
+
+color:white;
+
+z-index:9999;
+
+box-shadow:
+0 0 20px rgba(0,255,120,.35),
+0 0 40px rgba(0,255,120,.25),
+0 0 80px rgba(0,255,120,.12);
+
+animation:
+whatsappPulse 2s infinite;
+
+transition:.3s;
+
+}
+
+.floating-whatsapp:hover{
+
+transform:
+scale(1.08)
+translateY(-4px);
+
+box-shadow:
+0 0 30px rgba(0,255,120,.5),
+0 0 60px rgba(0,255,120,.35);
+
+}
+
+@keyframes whatsappPulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.08);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
 /* FOOTER */
 #topButton{
 position:fixed;
@@ -1301,6 +1380,17 @@ onclick="openAdmin()">
 <span></span>
 
 </div>
+
+<a
+href="https://api.whatsapp.com/send?phone=5493814157720"
+target="_blank"
+class="floating-whatsapp"
+>
+
+💬
+
+</a>
+
 <footer>
 © 2026 Street Puffs
 </footer>
