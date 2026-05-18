@@ -26,9 +26,8 @@ linear-gradient(
 #05070b
 );
 
-background-size:400% 400%;
-
-animation:bgMove 14s ease infinite;
+background-size:200% 200%;
+animation:bgMove 30s linear infinite;
 
 color:white;
 overflow-x:hidden;
@@ -42,7 +41,7 @@ position:fixed;
 width:700px;
 height:700px;
 background:#00e5ff18;
-filter:blur(160px);
+filter:blur(100px);
 top:-250px;
 right:-250px;
 z-index:-1;
@@ -54,7 +53,7 @@ position:fixed;
 width:600px;
 height:600px;
 background:#0077ff12;
-filter:blur(160px);
+filter:blur(100px);
 bottom:-250px;
 left:-250px;
 z-index:-1;
@@ -98,8 +97,8 @@ transform .08s linear;
 
 position:fixed;
 
-width:900px;
-height:900px;
+width:600px;
+height:600px;
 
 background:
 radial-gradient(
@@ -108,7 +107,7 @@ rgba(0,229,255,.06),
 transparent 70%
 );
 
-filter:blur(90px);
+filter:blur(70px);
 
 pointer-events:none;
 
@@ -812,7 +811,7 @@ z-index:1000;
 
 .modal-content{
 background:rgba(10,10,10,.96);
-backdrop-filter:blur(30px);
+backdrop-filter:blur(14px);
 border:1px solid rgba(255,255,255,.08);
 width:100%;
 max-width:520px;
@@ -1240,8 +1239,7 @@ PREMIUM VAPERS & ACCESORIOS
 
 <button 
 class="btn"
-onmouseenter="playHover()"
-onclick="playClick();scrollCatalogo()">
+onclick="scrollCatalogo()">
 VER PRODUCTOS
 </button>
 </header>
@@ -1400,18 +1398,6 @@ class="floating-whatsapp"
 ↑
 </div>
 
-<audio
-id="clickSound"
-src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
-preload="auto">
-</audio>
-
-<audio
-id="hoverSound"
-src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"
-preload="auto">
-</audio>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1497,30 +1483,6 @@ SIN STOCK
 `;
 
 });
-
-}
-
-function playClick(){
-
-const sound = document.getElementById("clickSound");
-
-sound.currentTime = 0;
-
-sound.volume = 0.15;
-
-sound.play();
-
-}
-
-function playHover(){
-
-const sound = document.getElementById("hoverSound");
-
-sound.currentTime = 0;
-
-sound.volume = 0.05;
-
-sound.play();
 
 }
 
@@ -1690,8 +1652,6 @@ closeProduct();
 }
 
 window.openProduct = function(product){
-  
-playClick();
 
 document.getElementById("productContent").innerHTML = `
 
@@ -1887,69 +1847,9 @@ starsContainer.appendChild(star);
 
 }
 
-document.addEventListener("mousemove",(e)=>{
-
-const stars = document.querySelectorAll(".star");
-
-stars.forEach((star)=>{
-
-const rect = star.getBoundingClientRect();
-
-const dx = e.clientX - rect.left;
-
-const dy = e.clientY - rect.top;
-
-const distance = Math.sqrt(dx * dx + dy * dy);
-
-if(distance < 120){
-
-star.style.transform = "scale(2.5)";
-
-star.style.opacity = "1";
-
-}else{
-
-star.style.transform = "scale(1)";
-
-star.style.opacity = ".7";
-
-}
-
-});
-
-});
-
 loadProducts();
 
 document.querySelector(".category").classList.add("active");
-
-let hoverCooldown = false;
-
-document.addEventListener("mouseover",(e)=>{
-
-if(hoverCooldown) return;
-
-if(
-e.target.closest(".card")
-||
-e.target.closest(".category")
-||
-e.target.closest(".btn")
-){
-
-playHover();
-
-hoverCooldown = true;
-
-setTimeout(()=>{
-
-hoverCooldown = false;
-
-},120);
-
-}
-
-});
 
 </script>
 </body>
