@@ -1484,9 +1484,13 @@ document.getElementById("addProductButton").style.display = "flex";
 
 }
 
-let currentCategory = "Todos";
+let currentCategory =
+localStorage.getItem("currentCategory")
+|| "Todos";
 
-let searchText = "";
+let searchText =
+localStorage.getItem("searchText")
+|| "";
 
 let editingProductId = null;
 
@@ -1796,6 +1800,11 @@ showToast("Producto eliminado");
 window.filterCategory = function(category){
 
 currentCategory = category;
+
+localStorage.setItem(
+"currentCategory",
+category
+);
 
 document.querySelectorAll(".category").forEach((btn)=>{
 
