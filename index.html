@@ -61,6 +61,38 @@ left:-250px;
 z-index:-1;
 }
 
+/* CURSOR GLOW */
+
+#cursorGlow{
+
+position:fixed;
+
+width:280px;
+height:280px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(0,229,255,.18),
+transparent 70%
+);
+
+pointer-events:none;
+
+z-index:-1;
+
+transform:
+translate(-50%,-50%);
+
+filter:blur(25px);
+
+transition:
+transform .08s linear;
+
+}
+
 /* PARTICULAS */
 
 .particles{
@@ -1140,6 +1172,8 @@ onclick="openAdmin()">
 
 <div class="toast" id="toast"></div>
 
+<div id="cursorGlow"></div>
+
 <div class="particles">
 
 <span></span>
@@ -1576,6 +1610,16 @@ button.classList.add("show");
 button.classList.remove("show");
 
 }
+
+});
+
+const cursorGlow = document.getElementById("cursorGlow");
+
+document.addEventListener("mousemove",(e)=>{
+
+cursorGlow.style.left = e.clientX + "px";
+
+cursorGlow.style.top = e.clientY + "px";
 
 });
 
