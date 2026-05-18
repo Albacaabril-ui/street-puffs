@@ -1238,8 +1238,10 @@ ondblclick="showAdminButton()"
 PREMIUM VAPERS & ACCESORIOS
 </p>
 
-<button class="btn"
-onclick="scrollCatalogo()">
+<button 
+class="btn"
+onmouseenter="playHover()"
+onclick="playClick();scrollCatalogo()">
 VER PRODUCTOS
 </button>
 </header>
@@ -1398,6 +1400,18 @@ class="floating-whatsapp"
 ↑
 </div>
 
+<audio
+id="clickSound"
+src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+preload="auto">
+</audio>
+
+<audio
+id="hoverSound"
+src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"
+preload="auto">
+</audio>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1483,6 +1497,30 @@ SIN STOCK
 `;
 
 });
+
+}
+
+function playClick(){
+
+const sound = document.getElementById("clickSound");
+
+sound.currentTime = 0;
+
+sound.volume = 0.15;
+
+sound.play();
+
+}
+
+function playHover(){
+
+const sound = document.getElementById("hoverSound");
+
+sound.currentTime = 0;
+
+sound.volume = 0.05;
+
+sound.play();
 
 }
 
@@ -1652,6 +1690,8 @@ closeProduct();
 }
 
 window.openProduct = function(product){
+  
+playClick();
 
 document.getElementById("productContent").innerHTML = `
 
@@ -1882,6 +1922,34 @@ star.style.opacity = ".7";
 loadProducts();
 
 document.querySelector(".category").classList.add("active");
+
+let hoverCooldown = false;
+
+document.addEventListener("mouseover",(e)=>{
+
+if(hoverCooldown) return;
+
+if(
+e.target.closest(".card")
+||
+e.target.closest(".category")
+||
+e.target.closest(".btn")
+){
+
+playHover();
+
+hoverCooldown = true;
+
+setTimeout(()=>{
+
+hoverCooldown = false;
+
+},120);
+
+}
+
+});
 
 </script>
 </body>
