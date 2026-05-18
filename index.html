@@ -1837,6 +1837,11 @@ searchText = document
 .value
 .toLowerCase();
 
+localStorage.setItem(
+"searchText",
+searchText
+);
+
 loadProducts();
 
 }
@@ -1915,9 +1920,12 @@ p.style.setProperty("--size", random + "px");
 
 });
 
-loadProducts();
+document.getElementById("searchInput").value =
+searchText;
 
-document.querySelector(".category").classList.add("active");
+filterCategory(currentCategory);
+
+loadProducts();
 
 </script>
 </body>
