@@ -93,6 +93,116 @@ transform .08s linear;
 
 }
 
+/* SMOKE EFFECT */
+
+.smoke{
+
+position:fixed;
+
+width:900px;
+height:900px;
+
+background:
+radial-gradient(
+circle,
+rgba(0,229,255,.06),
+transparent 70%
+);
+
+filter:blur(90px);
+
+pointer-events:none;
+
+z-index:-3;
+
+top:20%;
+left:-200px;
+
+animation:smokeMove 18s ease-in-out infinite;
+
+}
+
+.smoke2{
+
+top:60%;
+left:auto;
+right:-250px;
+
+background:
+radial-gradient(
+circle,
+rgba(123,47,255,.06),
+transparent 70%
+);
+
+animation-delay:9s;
+
+}
+
+@keyframes smokeMove{
+
+0%{
+transform:
+translateX(0)
+translateY(0)
+scale(1);
+}
+
+50%{
+transform:
+translateX(120px)
+translateY(-40px)
+scale(1.1);
+}
+
+100%{
+transform:
+translateX(0)
+translateY(0)
+scale(1);
+}
+
+}
+
+/* STARS */
+
+#stars{
+
+position:fixed;
+inset:0;
+
+pointer-events:none;
+
+z-index:-2;
+
+overflow:hidden;
+
+}
+
+.star{
+
+position:absolute;
+
+width:2px;
+height:2px;
+
+border-radius:50%;
+
+background:white;
+
+opacity:.7;
+
+box-shadow:
+0 0 10px #00e5ff,
+0 0 20px #00e5ff,
+0 0 40px #00e5ff;
+
+transition:
+transform .2s,
+opacity .2s;
+
+}
+
 /* PARTICULAS */
 
 .particles{
@@ -1174,6 +1284,11 @@ onclick="openAdmin()">
 
 <div id="cursorGlow"></div>
 
+<div class="smoke"></div>
+<div class="smoke smoke2"></div>
+
+<div id="stars"></div>
+
 <div class="particles">
 
 <span></span>
@@ -1620,6 +1735,58 @@ document.addEventListener("mousemove",(e)=>{
 cursorGlow.style.left = e.clientX + "px";
 
 cursorGlow.style.top = e.clientY + "px";
+
+});
+
+const starsContainer = document.getElementById("stars");
+
+for(let i = 0; i < 70; i++){
+
+const star = document.createElement("div");
+
+star.classList.add("star");
+
+const x = Math.random() * window.innerWidth;
+
+const y = Math.random() * window.innerHeight;
+
+star.style.left = x + "px";
+
+star.style.top = y + "px";
+
+starsContainer.appendChild(star);
+
+}
+
+document.addEventListener("mousemove",(e)=>{
+
+const stars = document.querySelectorAll(".star");
+
+stars.forEach((star)=>{
+
+const rect = star.getBoundingClientRect();
+
+const dx = e.clientX - rect.left;
+
+const dy = e.clientY - rect.top;
+
+const distance = Math.sqrt(dx * dx + dy * dy);
+
+if(distance < 120){
+
+star.style.transform = "scale(2.5)";
+
+star.style.opacity = "1";
+
+}else{
+
+star.style.transform = "scale(1)";
+
+star.style.opacity = ".7";
+
+}
+
+});
 
 });
 
