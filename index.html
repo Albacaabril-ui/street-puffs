@@ -203,6 +203,10 @@ linear-gradient(
 #00e5ff
 );
 
+backdrop-filter:blur(10px);
+
+border-bottom:1px solid rgba(255,255,255,.12);
+
 box-shadow:
 0 0 20px rgba(0,229,255,.35);
 
@@ -212,6 +216,8 @@ align-items:center;
 }
 
 .banner-track{
+  
+align-items:center;
 
 display:flex;
 gap:80px;
@@ -222,7 +228,7 @@ min-width:max-content;
 
 padding-left:100%;
 
-animation:bannerMove 18s linear infinite;
+animation:bannerMove 24s linear infinite;
 
 }
 
@@ -482,6 +488,9 @@ gap:12px;
 /* CARD */
 
 .card{
+  
+will-change:transform;
+  
 background:
 linear-gradient(
 180deg,
