@@ -2202,8 +2202,8 @@ let total = 0;
 
 cart.forEach((product)=>{
 
-const price = parseFloat(
-product.price.replace(/[^0-9.]/g,"")
+const price = parseInt(
+product.price.replace(/\./g,"").replace(/[^0-9]/g,"")
 ) || 0;
 
 total += price;
@@ -2211,7 +2211,7 @@ total += price;
 });
 
 document.getElementById("cartTotal")
-.textContent = `Total: $${total}`;
+.textContent = `Total: $${total.toLocaleString("es-AR")}`;
 
 }
 
