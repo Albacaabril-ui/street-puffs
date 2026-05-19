@@ -2185,12 +2185,33 @@ showToast("Producto agregado al carrito");
 
 updateCartCount();
 
+updateCartTotal();
+
 }
 
 function updateCartCount(){
 
 document.getElementById("cartCount")
 .textContent = cart.length;
+
+}
+
+function updateCartTotal(){
+
+let total = 0;
+
+cart.forEach((product)=>{
+
+const price = parseFloat(
+product.price.replace(/[^0-9.]/g,"")
+) || 0;
+
+total += price;
+
+});
+
+document.getElementById("cartTotal")
+.textContent = `Total: $${total}`;
 
 }
 
@@ -2269,6 +2290,8 @@ X
 
 }
 
+updateCartTotal();
+
 document.getElementById("cartModal")
 .style.display = "flex";
 
@@ -2291,6 +2314,8 @@ JSON.stringify(cart)
 );
 
 updateCartCount();
+
+updateCartTotal();
 
 openCart();
 
@@ -2504,6 +2529,7 @@ loader.style.display = "none";
 },1800);
 
 updateCartCount();
+updateCartTotal();
 
 };
 
@@ -2526,6 +2552,19 @@ Carrito
 </h2>
 
 <div id="cartItems"></div>
+
+<div
+id="cartTotal"
+style="
+margin-top:20px;
+margin-bottom:20px;
+font-size:1.2rem;
+font-weight:800;
+text-align:right;
+color:#00e5ff;
+">
+Total: $0
+</div>
 
 <button
 class="save-btn"
