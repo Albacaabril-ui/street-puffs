@@ -1272,10 +1272,14 @@ z-index:999999;
 
 overflow:hidden;
 
+opacity:1;
+visibility:visible;
+
 animation:
 loaderFade 1.2s ease forwards;
 
 animation-delay:4s;
+
 }
 
 /* HUMO */
@@ -2157,15 +2161,23 @@ searchText;
 
 filterCategory(currentCategory);
 
-window.addEventListener("load",()=>{
+window.onload = () => {
+
+const loader = document.getElementById("loader");
+
+loader.style.display = "flex";
+
+document.body.style.overflow = "hidden";
 
 setTimeout(()=>{
 
 document.body.style.overflow = "auto";
 
-},4200);
+loader.style.display = "none";
 
-});
+},5200);
+
+};
 
 </script>
 </body>
