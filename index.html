@@ -17,7 +17,7 @@ scroll-behavior:smooth;
 }
 
 body{
-overflow:hidden;
+overflow-x:hidden;
 background:
 linear-gradient(
 -45deg,
@@ -883,6 +883,45 @@ text-decoration:none;
 font-weight:800;
 margin-top:22px;
 }
+.cart-btn{
+
+width:100%;
+
+padding:17px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+90deg,
+#00e5ff,
+#0077ff
+);
+
+color:white;
+
+font-weight:800;
+
+font-size:1rem;
+
+cursor:pointer;
+
+margin-top:15px;
+
+transition:.3s;
+
+}
+
+.cart-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 10px 25px rgba(0,229,255,.25);
+
+}
 .whatsapp:hover{
 transform:translateY(-2px);
 box-shadow:0 10px 25px rgba(0,255,120,.25);
@@ -1139,6 +1178,75 @@ transform:rotate(360deg);
 }
 
 /* FOOTER */
+#cartButton{
+
+position:fixed;
+
+right:20px;
+bottom:220px;
+
+width:70px;
+height:70px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:2rem;
+
+cursor:pointer;
+
+z-index:9999;
+
+background:
+linear-gradient(
+135deg,
+#00e5ff,
+#0077ff
+);
+
+box-shadow:
+0 0 25px rgba(0,229,255,.35);
+
+transition:.3s;
+
+}
+
+#cartButton:hover{
+
+transform:
+translateY(-4px)
+scale(1.05);
+
+}
+
+#cartCount{
+
+position:absolute;
+
+top:-5px;
+right:-5px;
+
+background:red;
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:.8rem;
+font-weight:800;
+
+color:white;
+
+}
+
 #topButton{
 position:fixed;
 bottom:90px;
@@ -1679,6 +1787,18 @@ class="floating-whatsapp"
 © 2026 Street Puffs
 </footer>
 
+<div
+id="cartButton"
+onclick="openCart()">
+
+🛒
+
+<span id="cartCount">
+0
+</span>
+
+</div>
+
 <div id="topButton" onclick="scrollTopPage()">
 ↑
 </div>
@@ -1730,6 +1850,10 @@ localStorage.getItem("searchText")
 
 let editingProductId = null;
 
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
 async function loadProducts(){
 
 const container = document.getElementById("products");
@@ -1753,7 +1877,8 @@ return;
 }
 
 container.innerHTML += `
-<div class="card" onclick='openProduct(${JSON.stringify(product)})'>
+<div class="card"
+onclick='openProduct(${JSON.stringify(product).replace(/'/g,"&apos;")})'>
 
 ${product.outOfStock ? `
 <div class="stock-badge">
@@ -1761,7 +1886,10 @@ SIN STOCK
 </div>
 ` : ""}
 
-<img src="${product.image}">
+<img
+src="${product.image}"
+onerror="this.src='https://i.imgur.com/8Km9tLL.png'"
+>
 
 <div class="card-content">
 <h3>${product.name}</h3>
@@ -1964,7 +2092,7 @@ ${product.price}
 ${admin ? `
 
 <button
-onclick='editProduct(${JSON.stringify(product)})'
+onclick='editProduct(${JSON.stringify(product).replace(/'/g,"&apos;")})'
 style="
 width:100%;
 padding:14px;
@@ -2005,9 +2133,171 @@ target="_blank">
 Consultar por WhatsApp
 
 </a>
+
+<button
+class="cart-btn"
+onclick='addToCart(${JSON.stringify(product).replace(/'/g,"&apos;")})'>
+
+Agregar al carrito
+
+</button>
+
 `;
 
 document.getElementById("productModal").style.display = "flex";
+
+}
+
+window.addToCart = function(product){
+
+cart.push(product);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+showToast("Producto agregado al carrito");
+
+updateCartCount();
+
+}
+
+function updateCartCount(){
+
+document.getElementById("cartCount")
+.textContent = cart.length;
+
+}
+
+window.openCart = function(){
+
+const container =
+document.getElementById("cartItems");
+
+container.innerHTML = "";
+
+if(cart.length === 0){
+
+container.innerHTML = `
+<p style="color:#aaa;">
+Tu carrito está vacío
+</p>
+`;
+
+}else{
+
+cart.forEach((product,index)=>{
+
+container.innerHTML += `
+
+<div style="
+display:flex;
+gap:15px;
+align-items:center;
+margin-bottom:20px;
+background:rgba(255,255,255,.05);
+padding:12px;
+border-radius:18px;
+">
+
+<img
+src="${product.image}"
+style="
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:12px;
+">
+
+<div style="flex:1;">
+
+<h3 style="font-size:.95rem;">
+${product.name}
+</h3>
+
+<div class="price">
+${product.price}
+</div>
+
+</div>
+
+<button
+onclick="removeFromCart(${index})"
+style="
+background:red;
+border:none;
+color:white;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+">
+
+X
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("cartModal")
+.style.display = "flex";
+
+}
+
+window.closeCart = function(){
+
+document.getElementById("cartModal")
+.style.display = "none";
+
+}
+
+window.removeFromCart = function(index){
+
+cart.splice(index,1);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+updateCartCount();
+
+openCart();
+
+showToast("Producto eliminado");
+
+}
+
+window.finishPurchase = function(){
+
+if(cart.length === 0){
+
+showToast("El carrito está vacío");
+
+return;
+
+}
+
+let message =
+"Hola, quiero comprar:%0A%0A";
+
+cart.forEach((product)=>{
+
+message +=
+`• ${product.name} - ${product.price}%0A`;
+
+});
+
+window.open(
+`https://wa.me/5493814157720?text=${message}`,
+"_blank"
+);
 
 }
 
@@ -2167,18 +2457,50 @@ const loader = document.getElementById("loader");
 
 loader.style.display = "flex";
 
-document.body.style.overflow = "hidden";
+document.body.style.overflowY = "hidden";
 
 setTimeout(()=>{
 
-document.body.style.overflow = "auto";
+document.body.style.overflowY = "auto";
 
 loader.style.display = "none";
 
 },5200);
 
+updateCartCount();
+
 };
 
 </script>
+
+<div class="modal" id="cartModal">
+
+<div class="modal-content">
+
+<span
+class="close"
+onclick="closeCart()">
+
+&times;
+
+</span>
+
+<h2 style="margin-bottom:20px;">
+Carrito
+</h2>
+
+<div id="cartItems"></div>
+
+<button
+class="save-btn"
+onclick="finishPurchase()">
+
+FINALIZAR COMPRA
+
+</button>
+
+</div>
+
+</div>
 </body>
 </html>
