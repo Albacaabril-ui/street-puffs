@@ -1248,10 +1248,236 @@ transform:translateY(0);
 
 }
 
+/* LOADER CINEMATOGRAFICO */
+
+#loader{
+
+position:fixed;
+inset:0;
+
+background:
+radial-gradient(
+circle at center,
+#08131d,
+#02050a 70%
+);
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+overflow:hidden;
+
+animation:
+loaderFade 1.2s ease forwards;
+
+animation-delay:3.2s;
+}
+
+/* HUMO */
+
+.loader-smoke{
+
+position:absolute;
+
+width:900px;
+height:900px;
+
+background:
+radial-gradient(
+circle,
+rgba(0,229,255,.12),
+transparent 70%
+);
+
+filter:blur(120px);
+
+animation:
+smokePulse 4s ease-in-out infinite;
+
+}
+
+/* LOGO */
+
+.loader-logo{
+
+width:240px;
+max-width:75%;
+
+z-index:2;
+
+opacity:0;
+
+filter:
+drop-shadow(0 0 25px rgba(0,229,255,.45))
+drop-shadow(0 0 60px rgba(0,229,255,.25));
+
+animation:
+logoReveal 2s ease forwards;
+
+}
+
+/* GLOW */
+
+.loader-glow{
+
+position:absolute;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(0,229,255,.25),
+transparent 70%
+);
+
+filter:blur(40px);
+
+animation:
+glowPulse 2.5s infinite;
+
+}
+
+/* TEXTO */
+
+.loader-text{
+
+margin-top:25px;
+
+font-size:1.1rem;
+letter-spacing:8px;
+font-weight:800;
+
+color:white;
+
+opacity:0;
+
+text-shadow:
+0 0 10px rgba(0,229,255,.5),
+0 0 20px rgba(0,229,255,.3);
+
+animation:
+textReveal 1.5s ease forwards;
+
+animation-delay:1s;
+
+z-index:2;
+
+}
+
+/* ANIMACIONES */
+
+@keyframes logoReveal{
+
+0%{
+opacity:0;
+transform:
+scale(.7)
+translateY(30px);
+filter:blur(10px);
+}
+
+100%{
+opacity:1;
+transform:
+scale(1)
+translateY(0);
+filter:blur(0);
+}
+
+}
+
+@keyframes textReveal{
+
+0%{
+opacity:0;
+letter-spacing:20px;
+}
+
+100%{
+opacity:1;
+letter-spacing:8px;
+}
+
+}
+
+@keyframes glowPulse{
+
+0%{
+transform:scale(1);
+opacity:.7;
+}
+
+50%{
+transform:scale(1.15);
+opacity:1;
+}
+
+100%{
+transform:scale(1);
+opacity:.7;
+}
+
+}
+
+@keyframes smokePulse{
+
+0%{
+transform:scale(1);
+opacity:.5;
+}
+
+50%{
+transform:scale(1.1);
+opacity:.9;
+}
+
+100%{
+transform:scale(1);
+opacity:.5;
+}
+
+}
+
+@keyframes loaderFade{
+
+to{
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+}
+
+}
+
 </style>
 </head>
 
 <body>
+
+<div id="loader">
+
+<div class="loader-smoke"></div>
+
+<img
+src="https://i.imgur.com/f4pVPlZ.png"
+class="loader-logo"
+>
+
+<div class="loader-glow"></div>
+
+<h1 class="loader-text">
+STREET PUFFS
+</h1>
+
+</div>
+
 <div class="top-banner">
 
 <div class="banner-track">
