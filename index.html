@@ -17,6 +17,7 @@ scroll-behavior:smooth;
 }
 
 body{
+overflow:hidden;
 background:
 linear-gradient(
 -45deg,
@@ -1274,7 +1275,7 @@ overflow:hidden;
 animation:
 loaderFade 1.2s ease forwards;
 
-animation-delay:3.2s;
+animation-delay:4s;
 }
 
 /* HUMO */
@@ -1448,7 +1449,12 @@ opacity:.5;
 
 @keyframes loaderFade{
 
-to{
+0%{
+opacity:1;
+visibility:visible;
+}
+
+100%{
 opacity:0;
 visibility:hidden;
 pointer-events:none;
@@ -2150,6 +2156,16 @@ document.getElementById("searchInput").value =
 searchText;
 
 filterCategory(currentCategory);
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+document.body.style.overflow = "auto";
+
+},4200);
+
+});
 
 </script>
 </body>
